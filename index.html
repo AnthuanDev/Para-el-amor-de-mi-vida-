@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Para ti ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rojo: #c23b4a;
+      --rosa: #e8a0a8;
+      --crema: #fdf6f0;
+      --dorado: #d4a373;
+      --oscuro: #2c1e1e;
+      --suave: #f8e9e9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--crema);
+      color: var(--oscuro);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Corazones flotantes */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      color: var(--rosa);
+      opacity: 0.35;
+      animation: floatHeart linear infinite;
+    }
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      background: linear-gradient(180deg, #fce8ea 0%, var(--crema) 100%);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--rojo);
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+    header .subtitle {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #8a5a5a;
+    }
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: var(--dorado);
+      margin: 1.2rem auto;
+      border-radius: 2px;
+    }
+
+    /* Sección de mensaje */
+    .carta {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.4rem;
+      text-align: center;
+    }
+    .carta p {
+      font-size: 1.25rem;
+      color: #5c3a3a;
+      margin-bottom: 1rem;
+    }
+    .carta .firma {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--rojo);
+      margin-top: 1.5rem;
+    }
+
+    /* Galería de fotos */
+    section {
+      position: relative;
+      z-index: 2;
+      padding: 1.5rem 1rem 2.5rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 1.7rem;
+      color: var(--rojo);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .galeria .foto {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(194, 59, 74, 0.15);
+      aspect-ratio: 3/4;
+      background: #eee;
+    }
+    .galeria .foto.wide {
+      grid-column: span 2;
+      aspect-ratio: 16/10;
+    }
+    .galeria img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .galeria .foto:active img {
+      transform: scale(1.04);
+    }
+
+    /* Frases románticas */
+    .frases {
+      max-width: 560px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+    .frase-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 1px solid #f0dcdc;
+    }
+    .frase-card img {
+      width: 100%;
+      display: block;
+      max-height: 420px;
+      object-fit: cover;
+    }
+
+    /* Caja de comentarios */
+    .comentarios {
+      max-width: 560px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 1.6rem;
+      box-shadow: 0 12px 30px rgba(194, 59, 74, 0.12);
+      border: 1px solid #f5d0d0;
+    }
+    .comentarios h2 {
+      margin-bottom: 0.6rem;
+    }
+    .comentarios .hint {
+      text-align: center;
+      font-size: 1.05rem;
+      color: #8a6a6a;
+      margin-bottom: 1.3rem;
+      font-style: italic;
+    }
+
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .formulario input,
+    .formulario textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid #f0c8c8;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 1.15rem;
+      background: #fffafa;
+      color: var(--oscuro);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .formulario input:focus,
+    .formulario textarea:focus {
+      border-color: var(--rojo);
+    }
+    .formulario input::placeholder,
+    .formulario textarea::placeholder {
+      color: #c09090;
+    }
+    textarea {
+      min-height: 110px;
+      resize: none;
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--rojo), #a82d3b);
+      color: white;
+      border: none;
+      padding: 0.95rem;
+      border-radius: 14px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      box-shadow: 0 6px 18px rgba(194, 59, 74, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:active {
+      transform: scale(0.97);
+      box-shadow: 0 3px 10px rgba(194, 59, 74, 0.3);
+    }
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    /* Mensaje de éxito */
+    .exito {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: #f0faf0;
+      border-radius: 14px;
+      border: 1px solid #b8e0b8;
+      color: #2d5a2d;
+      font-size: 1.2rem;
+      animation: aparecer 0.4s ease;
+    }
+    .exito.visible {
+      display: block;
+    }
+    .exito .icono {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem;
+      color: #a07070;
+      font-size: 1.1rem;
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+    }
+    footer .corazon {
+      color: var(--rojo);
+      font-size: 1.4rem;
+    }
+
+    /* Lightbox simple */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 15, 15, 0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: 88vh;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .lightbox .cerrar {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      color: white;
+      font-size: 2.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0.85;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .estrella {
+      color: var(--dorado);
+    }
+
+    /* Botón a la poesía */
+    .btn-poesia {
+      display: block;
+      max-width: 320px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--rojo), #a82d3b);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(194, 59, 74, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      z-index: 2;
+    }
+    .btn-poesia:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Corazones flotantes -->
+  <div class="hearts" id="hearts"></div>
+
+  <!-- Header -->
+  <header>
+    <h1>Para ti</h1>
+    <p class="subtitle">mi persona favorita en el mundo</p>
+    <div class="divider"></div>
+  </header>
+
+  <!-- Carta -->
+  <div class="carta">
+    <p>Hay días en los que solo quiero mirarte y recordar que eres lo más bonito que me ha pasado.</p>
+    <p>Esta página es un rinconcito solo nuestro… con nuestras fotos, nuestras risas y un lugar para que me dejes mensajes cuando quieras.</p>
+    <p class="firma">Con todo mi cariño <span class="estrella">✦</span></p>
+  </div>
+
+  <!-- Botón a la poesía -->
+  <a href="poesia.html" class="btn-poesia">Leer la poesía que te escribí 💌</a>
+
+  <!-- Galería de momentos -->
+  <section>
+    <h2>Nuestros momentos</h2>
+    <div class="galeria">
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000771708.jpg" alt="Nosotros">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000771765.jpg" alt="Abrazo">
+      </div>
+      <div class="foto wide" onclick="abrirLightbox(this)">
+        <img src="1000773567.jpg" alt="En el Parlamento">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000772720.jpg" alt="Tú">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000773170.jpg" alt="En el agua">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000773149.jpg" alt="En el sofá">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000773174.jpg" alt="Descansando">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000773632.jpg" alt="Tu sonrisa">
+      </div>
+      <div class="foto" onclick="abrirLightbox(this)">
+        <img src="1000772073.jpg" alt="Mirándote">
+      </div>
+    </div>
+  </section>
+
+  <!-- Frases románticas -->
+  <section>
+    <h2>Cómo te veo</h2>
+    <div class="frases">
+      <div class="frase-card">
+        <img src="1000772671.jpg" alt="Puedo hacerlo yo misma">
+      </div>
+      <div class="frase-card">
+        <img src="1000772672.jpg" alt="Puedo manejar mis propios problemas">
+      </div>
+      <div class="frase-card">
+        <img src="1000772670.jpg" alt="Simplemente no estoy acostumbrada">
+      </div>
+      <div class="frase-card">
+        <img src="1000772673.jpg" alt="Un rey no se arrodilla">
+      </div>
+      <div class="frase-card">
+        <img src="1000772674.jpg" alt="Nunca bajes tus estándares">
+      </div>
+      <div class="frase-card">
+        <img src="1000772675.jpg" alt="Yo viendo su foto">
+      </div>
+      <div class="frase-card">
+        <img src="1000772676.jpg" alt="Quiero despertarme">
+      </div>
+    </div>
+  </section>
+
+  <!-- Caja de comentarios (ahora envía de verdad) -->
+  <section>
+    <div class="comentarios">
+      <h2>Déjame un mensaje</h2>
+      <p class="hint">Escríbeme lo que quieras… me llegará directo al corazón (y al correo) 💌</p>
+
+      <!-- 
+        IMPORTANTE: Cambia el email de abajo por el tuyo.
+        Ejemplo: https://formsubmit.co/tuemail@gmail.com
+      -->
+      <form id="form-mensaje" class="formulario" action="https://formsubmit.co/TU_EMAIL_AQUI@gmail.com" method="POST">
+        
+        <!-- Campos ocultos de Formsubmit -->
+        <input type="hidden" name="_subject" value="💌 Nuevo mensaje de tu página romántica">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <!-- Opcional: redirige a la misma página después de enviar -->
+        <input type="hidden" name="_next" value="">
+
+        <input type="text" name="nombre" placeholder="Tu nombre (opcional)" maxlength="40">
+        <textarea name="mensaje" id="nuevo-mensaje" placeholder="Escribe aquí tu mensaje para mí..." required></textarea>
+        
+        <button type="submit" id="btn-enviar">Enviar con cariño ❤️</button>
+      </form>
+
+      <div class="exito" id="mensaje-exito">
+        <div class="icono">💕</div>
+        <p>¡Mensaje enviado!<br>Ya me ha llegado. Gracias por escribirme.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Hecho solo para ti<br>
+    <span class="corazon">♥</span>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="cerrarLightbox()">
+    <button class="cerrar" onclick="cerrarLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    // ===== Corazones flotantes =====
+    function crearCorazones() {
+      const contenedor = document.getElementById('hearts');
+      const simbolos = ['♥', '♡', '❤', '💕'];
+      for (let i = 0; i < 18; i++) {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = (14 + Math.random() * 18) + 'px';
+        h.style.animationDuration = (9 + Math.random() * 14) + 's';
+        h.style.animationDelay = (Math.random() * 10) + 's';
+        contenedor.appendChild(h);
+      }
+    }
+    crearCorazones();
+
+    // ===== Lightbox =====
+    function abrirLightbox(el) {
+      const img = el.querySelector('img');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    function cerrarLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // ===== Formulario =====
+    // Configurar la URL de retorno para que vuelva a esta misma página
+    document.querySelector('input[name="_next"]').value = window.location.href;
+
+    const form = document.getElementById('form-mensaje');
+    const btn = document.getElementById('btn-enviar');
+    const exito = document.getElementById('mensaje-exito');
+
+    form.addEventListener('submit', function() {
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+    });
+
+    // Si viene de Formsubmit (después de enviar), mostrar mensaje de éxito
+    if (window.location.search.includes('success') || document.referrer.includes('formsubmit')) {
+      form.style.display = 'none';
+      exito.classList.add('visible');
+    }
+  </script>
+</body>
+</html>
